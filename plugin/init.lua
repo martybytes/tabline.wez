@@ -93,12 +93,12 @@ package.path = package.path
 function M.setup(opts)
   require('tabline.config').set(opts)
 
-  wezterm.on('update-status', function(window)
-    require('tabline.component').set_status(window)
+  wezterm.on('update-status', function(window, pane)
+    require('tabline.component').set_status(window, pane)
   end)
 
   wezterm.on('format-tab-title', function(tab, _, _, _, hover, _)
-    return require('tabline.tabs').set_title(tab, hover)
+    return require('tabline.tabs').set_title(tab, tab.active_pane, hover)
   end)
 
   require('tabline.extension').load()

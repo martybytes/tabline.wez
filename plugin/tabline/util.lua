@@ -68,7 +68,7 @@ local function require_component(object, v)
   return component
 end
 
-function M.extract_components(components_opts, attributes, object, format)
+function M.extract_components(components_opts, attributes, object, pane, format)
   local component_opts = require('tabline.config').component_opts
   local components = {}
   for _, v in ipairs(components_opts) do
@@ -106,7 +106,7 @@ function M.extract_components(components_opts, attributes, object, format)
         end
       end
     elseif type(v) == 'function' then
-      table.insert(components, { Text = v(object) .. '' })
+      table.insert(components, { Text = v(object, pane) .. '' })
     elseif type(v) == 'table' then
       table.insert(components, v)
     end
