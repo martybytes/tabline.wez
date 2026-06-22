@@ -94,22 +94,25 @@ local function insert_component_separators(components, is_left)
   return components
 end
 
-local function create_sections(window)
+local function create_sections(window, pane)
   local sections = config.sections
   for _, ext in pairs(extension.extensions) do
     if ext.sections then
       sections = util.deep_extend(util.deep_copy(sections), ext.sections)
     end
   end
-  tabline_a = insert_component_separators(util.extract_components(sections.tabline_a, attributes_a, window, true), true)
-  tabline_b = insert_component_separators(util.extract_components(sections.tabline_b, attributes_b, window, true), true)
-  tabline_c = insert_component_separators(util.extract_components(sections.tabline_c, attributes_c, window, true), true)
+  tabline_a =
+    insert_component_separators(util.extract_components(sections.tabline_a, attributes_a, window, pane, true), true)
+  tabline_b =
+    insert_component_separators(util.extract_components(sections.tabline_b, attributes_b, window, pane, true), true)
+  tabline_c =
+    insert_component_separators(util.extract_components(sections.tabline_c, attributes_c, window, pane, true), true)
   tabline_x =
-    insert_component_separators(util.extract_components(sections.tabline_x, attributes_x, window, true), false)
+    insert_component_separators(util.extract_components(sections.tabline_x, attributes_x, window, pane, true), false)
   tabline_y =
-    insert_component_separators(util.extract_components(sections.tabline_y, attributes_y, window, true), false)
+    insert_component_separators(util.extract_components(sections.tabline_y, attributes_y, window, pane, true), false)
   tabline_z =
-    insert_component_separators(util.extract_components(sections.tabline_z, attributes_z, window, true), false)
+    insert_component_separators(util.extract_components(sections.tabline_z, attributes_z, window, pane, true), false)
 end
 
 local function right_section()
@@ -168,9 +171,9 @@ local function left_section()
   return result
 end
 
-function M.set_status(window)
+function M.set_status(window, pane)
   create_attributes(window)
-  create_sections(window)
+  create_sections(window, pane)
   window:set_left_status(wezterm.format(left_section()))
   window:set_right_status(wezterm.format(right_section()))
 end

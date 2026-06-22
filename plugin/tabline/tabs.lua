@@ -35,15 +35,15 @@ local function create_attributes(hover)
   }
 end
 
-local function create_tab_content(tab)
+local function create_tab_content(tab, pane)
   local sections = config.sections
   for _, ext in pairs(extension.extensions) do
     if ext.sections then
       sections = util.deep_extend(util.deep_copy(sections), ext.sections)
     end
   end
-  tab_active = util.extract_components(sections.tab_active, active_attributes, tab)
-  tab_inactive = util.extract_components(sections.tab_inactive, inactive_attributes, tab)
+  tab_active = util.extract_components(sections.tab_active, active_attributes, tab, pane)
+  tab_inactive = util.extract_components(sections.tab_inactive, inactive_attributes, tab, pane)
 end
 
 local function tabs(tab)
@@ -67,12 +67,12 @@ local function tabs(tab)
   return result
 end
 
-M.set_title = function(tab, hover)
+M.set_title = function(tab, pane, hover)
   if not config.opts.options.tabs_enabled then
     return
   end
   create_attributes(hover)
-  create_tab_content(tab)
+  create_tab_content(tab, pane)
   return tabs(tab)
 end
 

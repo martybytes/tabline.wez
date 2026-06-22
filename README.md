@@ -314,7 +314,7 @@ And the `tab_active` and `tab_inactive` components which are grouped under Tab a
 
 #### Custom components
 
-##### Lua functions as tabline component
+##### Lua functions as component
 
 ```lua
 local function hello()
@@ -324,15 +324,15 @@ sections = { tabline_a = { hello } }
 ```
 
 > [!NOTE]
-> Functions receive the `Window` object or `TabInformation` object as the first argument depending on the component group
+> Custom tabline component functions are passed the [Window](https://wezfurlong.org/wezterm/config/lua/window/index.html) and [Pane](https://wezfurlong.org/wezterm/config/lua/pane/index.html) objects as first and second argument. Custom tab component functions receive the [TabInformation](https://wezfurlong.org/wezterm/config/lua/TabInformation.html) and [PaneInformation](https://wezfurlong.org/wezterm/config/lua/PaneInformation.html) objects, respectively.
 
-##### Text string as tabline component
+##### Text string as component
 
 ```lua
 sections = { tabline_a = { 'Hello World' } }
 ```
 
-##### WezTerm Formatitem as tabline component
+##### WezTerm Formatitem as component
 
 You can find all the available format items [here](https://wezfurlong.org/wezterm/config/lua/wezterm/format.html). The `ResetAttributes` format item has been overwritten to reset all attributes back to the default for that component instead of the WezTerm default.
 
