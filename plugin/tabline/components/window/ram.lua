@@ -20,14 +20,21 @@ return {
         success, result = wezterm.run_child_process {
           'powershell.exe',
           '-Command',
-          'Get-CimInstance Win32_OperatingSystem | Select-Object -ExpandProperty FreePhysicalMemory',
+          'Get-CimInstance Win32_OperatingSystem | ForEach-Object { $_.TotalVisibleMemorySize - $_.FreePhysicalMemory }',
         }
       else
-        success, result = wezterm.run_child_process {
+        local free, total
+        success, free = wezterm.run_child_process {
           'cmd.exe',
           '/C',
-          'wmic OS get FreePhysicalMemory',
+          'wmic OS get FreePhysicalMemory'
         }
+        success, total = wezterm.run_child_process {
+          'cmd.exe',
+          '/C',
+          'wmic OS get TotalVisibleMemorySize'
+        }
+        result = tostring(tonumber(total:match('%d+')) - tonumber(free:match('%d+')))
       end
     elseif string.match(wezterm.target_triple, 'linux') ~= nil then
       success, result =
