@@ -19,7 +19,7 @@ return {
       ['cargo'] = { wezterm.nerdfonts.dev_rust, color = { fg = colors.ansi[2] } },
       ['chezmoi'] = { wezterm.nerdfonts.md_home_plus_outline, color = { fg = colors.brights[5] } },
       ['cmd.exe'] = { wezterm.nerdfonts.md_console_line, color = { fg = colors.cursor_bg or nil } },
-      ['curl'] = wezterm.nerdfonts.md_flattr,
+      ['curl'] = wezterm.nerdfonts.md_protocol,
       ['debug'] = { wezterm.nerdfonts.cod_debug, color = { fg = colors.ansi[5] } },
       ['default'] = wezterm.nerdfonts.md_application,
       ['docker'] = { wezterm.nerdfonts.md_docker, color = { fg = colors.ansi[5] } },
