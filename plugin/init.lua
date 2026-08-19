@@ -22,13 +22,16 @@ function plugin_package_path()
     ["%"]  = "sPs",
   }
 
-  local components = {
-    string.format("https://github.com/michaelbrusegard/%s", basename),
-    string.format("https://github.com/michaelbrusegard/%s/", basename),
-    string.format("http://github.com/michaelbrusegard/%s", basename),
-    string.format("http://github.com/michaelbrusegard/%s/", basename),
-    basename,
-  }
+  -- Fork note (martybytes): include both the upstream owner and this fork's
+  -- owner so the plugin finds its own package dir whichever URL required it.
+  local components = {}
+  for _, owner in ipairs({ "michaelbrusegard", "martybytes" }) do
+    components[#components + 1] = string.format("https://github.com/%s/%s", owner, basename)
+    components[#components + 1] = string.format("https://github.com/%s/%s/", owner, basename)
+    components[#components + 1] = string.format("http://github.com/%s/%s", owner, basename)
+    components[#components + 1] = string.format("http://github.com/%s/%s/", owner, basename)
+  end
+  components[#components + 1] = basename
 
   local i = nil
   for i = 1, #components do
